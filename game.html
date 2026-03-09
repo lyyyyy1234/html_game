@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>game</title>
+</head>
+<body>
+    <style>
+        body{
+            background-image: url("https://i.pinimg.com/originals/1c/e3/54/1ce354b9ac4303ba9d6dbcdf92b0ff50.gif");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+    </style>
+
+</body>
+<style>
+    #battle-field{
+        display:flex;
+        justify-content:space-around;
+    }
+    #player-side, #enemy-side{
+        width:40%;
+        border: 3px rgb(255, 255, 255),white;
+       background-color: rgba(50, 4, 4, 0);
+      background-position: 40px;
+        padding: 30px;
+    
+    }
+   
+    #player-side{color: #f2ffef; }
+
+    #enemy-side{color: rgb(255, 231, 231);}
+
+    .player-side{
+        border: 1px solid;
+        padding-left: 50px;
+    }
+
+    #player-info, #enemy-info{
+        border-radius: 0px;
+        text-align: center;
+    }
+    .hp-bar{
+        display: inline-block;
+        width: 300px;
+        height: 14px;
+        background:rgb(255, 255, 255);
+        border:1px solid #473636;
+        border-radius:8px;
+        overflow:hidden;
+        margin-top:6px;
+    }
+
+    .hp-bar div{
+        height:100%;
+        width:100%;
+        background:linear-gradient(45deg,#830101c3,#fbc4c4);
+    }
+    #action-box{
+        margin-top: 20px;
+    }
+    #action-box button{
+        padding: 10px 15px;
+        width: 120px;
+        height: 70px;
+        margin-right: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background-color: #000000;
+        color: #ffffff;
+        font-weight: bold;
+        
+    } 
+
+     #action-box button:hover{
+        background-color: #ee4c4c;
+    }   
+
+    #action-box button:disabled{
+        background-color: rgb(255, 255, 255);
+        cursor: not-allowed;
+    }
+
+    .shake{
+        animation: attack-animation 0.5s;
+    }
+
+    #ultimate-charge{
+        width: 100px;
+        height: 100px;
+        border:1px solid #50ebff;
+        border-radius:50%;
+        overflow:hidden;
+        margin-top:6px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: bottom;
+    }
+
+    #ultimate-charge div{
+        height: 100%;
+        width: 100%;
+        background: linear-gradient(45deg, #00344e, #1b00c9);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    @keyframes attack-animation {
+        0% { transform: rotate(0); }
+        25% { transform: rotate(20deg); }
+        50% { transform: rotate(0); }
+        75% { transform: rotate(-20deg); }
+        100% { transform: rotate(0); }
+    }
+   
+</style>
+
+<body>
+    <h1 class="h1id">SAKURA</h1>
+    <p>COLLENT SAKURA CARD</p>
+      <style>
+        body{color: #f2ffef;}
+      </style>
+
+    <script>
+        const h1 =document.querySelector('h1');
+        const hlid=document.getElementById('hlid')
+        alert(h1.innerText)
+    </script>
+
+    <div id="battle-field">
+        <div id="player-side">
+            <div id="player-info">
+                <img src="" id="player-img" alt="player-img" width="550" height="300" />
+                <p>Name: <span id="player-name"></span></p>
+                <div class="hp-bar">
+                    <div id="player-health-bar"></div> 
+                </div>
+                <p>HP: <span id="player-hp"></span></p>
+                <p>ATK: <span id="player-atk"></span></p>
+                <p>SP: <span id="player-sp"></span></p>
+                <div id="ultimate-charge">
+                    <div id="player-ult">
+                        <p style="display: flex; align-items: center; justify-content: center; height: 100%; margin: 0;">0/120</p>
+                    </div>
+                </div>
+                <div id="action-box">
+                    <button type="button" id="normal">Normal</button>
+                    <button type="button" id="skill" disabled>Skill</button>
+                    <button type="button" id="ultimate" disabled>Ultimate</button>
+
+                </div>
+            </div>
+        </div>
+        <div id="enemy-side">
+            <div id="enemy-info">
+                <img src="" id="enemy-img" alt="enemy-img" width="550" height="300" />
+                <p>Name: <span id="enemy-name"></span></p>
+                 <div class="hp-bar">
+                    <div id="enemy-health-bar"></div>
+                </div>
+                <p>HP: <span id="enemy-hp"></span></p>
+                <p>ATK: <span id="enemy-atk"></span></p>
+            </div>
+        </div>
+    </div>
+    <div>
+     
+    <script>
+        const player={
+            img:"https://i.pinimg.com/originals/07/18/da/0718dacbb80a53223e5839a07117c9e6.gif",
+            name:"SAKURA",
+            atk:80,
+            sp:5,
+            ult:3000,
+            hp:500,
+        }
+
+        const enemy={
+            img:"https://i.pinimg.com/originals/dd/58/7c/dd587c8f6de849f30a968f5b88585d5d.gif",
+            name:"CARD",
+            atk:8,
+            hp:300,
+        }
+        
+        function changehealtbar(){
+            const playerHpBar=document.getElementById('player-health-bar');
+            let hpPercentPlayer=(player.hp/100)*100;
+            playerHpBar.style.width=hpPercentPlayer+'%';
+            const enemyHpBar=document.getElementById('enemy-health-bar');
+            let hpPercent=(enemy.hp/80)*100;
+            enemyHpBar.style.width=hpPercent+'%';
+        }
+
+        const buttons=document.querySelectorAll('#action-box button');
+        buttons.forEach(function(button){
+            button.addEventListener('click',function(){
+                const action=this.textContent;
+                if(action==='Normal'){
+                    attack();
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded',function(){
+            loadCharacter();
+        });
+        
+        function loadCharacter(){
+            //player info
+            document.getElementById('player-name').textContent=player.name;
+            document.getElementById('player-atk').textContent=player.atk;
+            document.getElementById('player-hp').textContent=player.hp;
+            
+            document.getElementById('player-img').src=player.img;
+
+            //enemy info
+            document.getElementById('enemy-name').textContent=enemy.name;
+            document.getElementById('enemy-atk').textContent=enemy.atk;
+            document.getElementById('enemy-hp').textContent=enemy.hp;
+            document.getElementById('enemy-img').src=enemy.img;
+
+            if(player.sp>0){
+                document.getElementById('skill').disabled=false;
+            }
+            document.getElementById('player-sp').textContent=player.sp;
+        }
+
+        function attack(){
+            enemy.hp-=player.atk;
+            if(enemy.hp<0){
+                enemy.hp=0; 
+                 alert('You win!');
+                 
+            }
+            document.getElementById('enemy-hp').textContent=enemy.hp;
+            let img=document.getElementById('enemy-img')
+            img.classList.add('shake');
+            setTimeout(function(){ 
+                img.classList.remove('shake');
+            },500);
+
+            setTimeout(enemyAttack,1000);
+            changehealtbar();
+        }
+        function enemyAttack(){
+            player.hp-=enemy.atk;
+            if(player.hp<0){
+                player.hp=0;
+                alert('You lose!');
+            }
+            document.getElementById('player-hp').textContent=player.hp;
+            let img=document.getElementById('player-img')
+            img.classList.add('shake');
+            setTimeout(function(){ 
+                img.classList.remove('shake');
+            },500);
+            changehealtbar();
+        }
+        
+    </script>
+    
+</body>
+</html>
+          
